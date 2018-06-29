@@ -1,4 +1,14 @@
 [
+  "controllers/test_user_controller.py::UserControllerTest::test_save_user_returns_info_msg_for_successfully_saved_user",
   "models/test_user.py::UserTest::test_constructor_returns_instance_with_correct_values",
-  "models/test_user.py::UserTest::test_raise_exception_with_constructor_parameter_is_invalid"
+  "models/test_user.py::UserTest::test_raise_exception_with_constructor_parameter_is_invalid",
+  "utils/test_new_user_request_validator.py::NewUserRequestValidatorTest::test_array_request_data_raises_invalid_request_body_exception",
+  "utils/test_new_user_request_validator.py::NewUserRequestValidatorTest::test_empty_request_data_raises_invalid_request_body_exception",
+  "utils/test_new_user_request_validator.py::NewUserRequestValidatorTest::test_missing_access_level_raises_invalid_request_body_exception",
+  "utils/test_new_user_request_validator.py::NewUserRequestValidatorTest::test_missing_email_raises_invalid_request_body_exception",
+  "utils/test_new_user_request_validator.py::NewUserRequestValidatorTest::test_missing_first_name_raises_invalid_request_body_exception",
+  "utils/test_new_user_request_validator.py::NewUserRequestValidatorTest::test_missing_last_name_raises_invalid_request_body_exception",
+  "utils/test_new_user_request_validator.py::NewUserRequestValidatorTest::test_missing_password_raises_invalid_request_body_exception",
+  "utils/test_new_user_request_validator.py::NewUserRequestValidatorTest::test_missing_username_raises_invalid_request_body_exception",
+  "utils/test_new_user_request_validator.py::NewUserRequestValidatorTest::test_valid_request_body_returns_true"
 ]

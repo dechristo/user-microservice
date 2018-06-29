@@ -1,17 +1,12 @@
 from unittest import TestCase
 from src.models.user import User
+from tests.mocks.mocks import Mocks
+
 
 class UserTest(TestCase):
 
     def setUp(self):
-        self.user_mock = {
-            'first_name': 'Unit Test',
-            'last_name': 'User',
-            'username': 'unittest.user',
-            'password': 'oooops',
-            'access_level': 9,
-            'email': 'user@unittest.com'
-        }
+        self.user_mock = Mocks().USER_MOCK
 
     def test_raise_exception_with_constructor_parameter_is_invalid(self):
         invalid_param='name;last_name;1234'
