@@ -1,4 +1,0 @@
-[
-  "models/test_user.py::UserTest::test_constructor_returns_instance_with_correct_values",
-  "models/test_user.py::UserTest::test_raise_exception_with_constructor_parameter_is_invalid"
-]
