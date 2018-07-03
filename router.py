@@ -1,6 +1,9 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from src.controllers.user_controller import UserController
+
 
 app = Flask(__name__)
+user_controller = UserController()
 
 @app.route("/api/status-check")
 def status_check():
@@ -8,7 +11,10 @@ def status_check():
 
 @app.route("/api/user", methods=['POST'])
 def add_user():
-    pass
+    result = user_controller.save_user(request.json)
+    if 'error' in result:
+        return result.get('error'), 400
+    return jsonify(result)
 
 @app.route("/api/user", methods=['PUT'])
 def update_user():
