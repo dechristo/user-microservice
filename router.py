@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from src.controllers.user_controller import UserController
 
 
@@ -28,10 +28,13 @@ def delete_user():
 def get_all_users():
     pass
 
-@app.route("/api/user/<name>",  methods=['GET'])
+@app.route("/api/user/search/<name>",  methods=['GET'])
 def get_user_by_name(name):
     pass
 
 @app.route("/api/user/<id>",  methods=['GET'])
 def get_user_by_id(id):
-    pass
+    user = user_controller.find_by_id(id)
+    if not user:
+        abort(404)
+    return jsonify(user)
