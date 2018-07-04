@@ -13,11 +13,13 @@ class UserController:
         try:
             self.__parse_request_data(request_data)
             new_user = User(request_data)
-            self.db_service.insert_user(new_user)
-            return self.__send_response("info", "user successfully created.")
+            result = self.db_service.insert_user(new_user)
+            if not result:
+                return self.__send_response('error', 'user could not be created.')
+            return self.__send_response('info', 'user successfully created.')
         except InvalidRequestBody as err :
             print(err)
-            return self.__send_response("error", err.args[0])
+            return self.__send_response('error', err.args[0])
 
     def find_by_id(self, id):
         try:
@@ -26,7 +28,18 @@ class UserController:
             return user_response
         except Exception as err:
             print(err)
-            return self.__send_response("error", err)
+            return self.__send_response('error', err)
+
+    def delete_by_id(self, id):
+        try:
+            result =  self.db_service.delete_user_by_id(id)
+            if not result:
+                return self.__send_response('error', 'user could not be deleted because wasn`t found.')
+            return self.__send_response('info', 'user successfully deleted.')
+
+        except Exception as err:
+            print(err)
+            return self.__send_response('error', err)
 
     @staticmethod
     def __send_response(type, msg):
