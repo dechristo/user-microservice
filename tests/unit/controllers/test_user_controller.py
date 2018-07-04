@@ -11,10 +11,19 @@ class UserControllerTest(TestCase):
     @patch('src.services.db.mysql_service.MySQLService.insert_user')
     def test_save_user_returns_info_msg_for_successfully_saved_user(self, insert_stub, db_mock):
         db_mock.return_value = MysqlMock()
+        insert_stub.return_value = {'info':'user successfully created.'}
+        self.user_controller = UserController()
+        result = self.user_controller.save_user(Mocks().USER_MOCK)
+        self.assertEqual(result, {'info':'user successfully created.'})
+
+    @patch('MySQLdb.connect')
+    @patch('src.services.db.mysql_service.MySQLService.insert_user')
+    def test_save_user_returns_error_msg_for_failed_saving_operation(self, insert_stub, db_mock):
+        db_mock.return_value = MysqlMock()
         insert_stub.return_value = {}
         self.user_controller = UserController()
         result = self.user_controller.save_user(Mocks().USER_MOCK)
-        self.assertEqual(result, {"info":"user successfully created."})
+        self.assertEqual(result, {'error': 'user could not be created.'})
 
     @patch('MySQLdb.connect')
     @patch('src.services.db.mysql_service.MySQLService.find_user_by_id')
@@ -38,3 +47,21 @@ class UserControllerTest(TestCase):
             'access_level': 9,
             'email': 'user@unittest.com'
         })
+
+        @patch('MySQLdb.connect')
+        @patch('src.services.db.mysql_service.MySQLService.delete_user_by_id')
+        def test_delete_user_returns_info_msg_for_successfully_deleted_user(self, delete_stub, db_mock):
+            db_mock.return_value = MysqlMock()
+            delete_stub.return_value = {'info': 'user successfully deleted.'}
+            self.user_controller = UserController()
+            result = self.user_controller.save_user(Mocks().USER_MOCK)
+            self.assertEqual(result, {'info': 'user successfully deleted.'})
+
+        @patch('MySQLdb.connect')
+        @patch('src.services.db.mysql_service.MySQLService.delete_user_by_id')
+        def test_delete_user_returns_error_msg_for_non_existent_user(self, delete_stub, db_mock):
+            db_mock.return_value = MysqlMock()
+            delete_stub.return_value = {}
+            self.user_controller = UserController()
+            result = self.user_controller.save_user(Mocks().USER_MOCK)
+            self.assertEqual(result, {'error': 'user could not be deleted because wasn`t found.'})

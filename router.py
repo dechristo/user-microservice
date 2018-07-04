@@ -13,16 +13,19 @@ def status_check():
 def add_user():
     result = user_controller.save_user(request.json)
     if 'error' in result:
-        return result.get('error'), 400
+        return jsonify(result), 400
     return jsonify(result)
 
 @app.route("/api/user", methods=['PUT'])
 def update_user():
     pass
 
-@app.route("/api/user", methods=['DELETE'])
-def delete_user():
-    pass
+@app.route("/api/user/<id>", methods=['DELETE'])
+def delete_user(id):
+    result = user_controller.delete_by_id(id)
+    if 'error' in result or not result:
+        return jsonify(result), 404
+    return jsonify(result)
 
 @app.route("/api/users",  methods=['GET'])
 def get_all_users():
