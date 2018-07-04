@@ -28,13 +28,15 @@ def delete_user():
 def get_all_users():
     pass
 
-@app.route("/api/user/search/<name>",  methods=['GET'])
-def get_user_by_name(name):
+@app.route("/api/user",  methods=['GET'])
+def get_user_by_filter_params():
+    # name = request.args.get('name')
+    # abort(404)
     pass
 
 @app.route("/api/user/<id>",  methods=['GET'])
 def get_user_by_id(id):
     user = user_controller.find_by_id(id)
-    if not user:
+    if 'error' in user or not user:
         abort(404)
     return jsonify(user)

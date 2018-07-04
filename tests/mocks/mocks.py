@@ -9,3 +9,11 @@ class Mocks:
             'access_level': 9,
             'email': 'user@unittest.com'
         }
+        self.MYSQL_FIND_USER_RESULT_SINGLE = [
+            4,
+            'Unit Test',
+            'User',
+            'unittest.user',
+            9,
+            'user@unittest.com'
+        ]
