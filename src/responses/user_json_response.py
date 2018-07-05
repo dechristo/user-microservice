@@ -12,3 +12,12 @@ class UserJsonResponse:
             "access_level": data[4],
             "email": data[5]
         }
+
+    @staticmethod
+    def build_from_array(data):
+        if not isinstance(data, tuple):
+            raise ValueError('Invalid array data parameter for building user response.')
+        result = {
+            'data':[UserJsonResponse.build(user) for user in data]
+        }
+        return result

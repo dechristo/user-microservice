@@ -16,9 +16,12 @@ def add_user():
         return jsonify(result), 400
     return jsonify(result)
 
-@app.route("/api/user", methods=['PUT'])
-def update_user():
-    pass
+@app.route("/api/user/<id>", methods=['PUT'])
+def update_user(id):
+   result = user_controller.update_user(id, request.json)
+   if 'error' in result:
+       return jsonify(result), 400
+   return jsonify(result)
 
 @app.route("/api/user/<id>", methods=['DELETE'])
 def delete_user(id):
@@ -29,7 +32,10 @@ def delete_user(id):
 
 @app.route("/api/users",  methods=['GET'])
 def get_all_users():
-    pass
+    result = user_controller.get_all()
+    if 'error' in result or not result:
+        return jsonify(result), 404
+    return jsonify(result)
 
 @app.route("/api/user",  methods=['GET'])
 def get_user_by_filter_params():
