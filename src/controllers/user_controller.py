@@ -21,6 +21,15 @@ class UserController:
             print(err)
             return self.__send_response('error', err.args[0])
 
+    def get_all(self):
+        try:
+            users = self.db_service.get_all_users()
+            users_response = UserJsonResponse.build_from_array(users)
+            return users_response
+        except Exception as err:
+            print(err)
+            return self.__send_response('error', err)
+
     def find_by_id(self, id):
         try:
             user = self.db_service.find_user_by_id(id)

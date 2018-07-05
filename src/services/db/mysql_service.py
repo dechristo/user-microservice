@@ -20,6 +20,13 @@ class MySQLService():
                 user.email))
         return result
 
+    def get_all_users(self):
+        cursor = self.connection.cursor()
+        query = """SELECT id, first_name, last_name, username, access_level, email FROM user ;"""
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+
     def find_user_by_id(self, id):
         cursor = self.connection.cursor()
         query = """SELECT id, first_name, last_name, username, access_level, email FROM user WHERE

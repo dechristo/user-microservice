@@ -29,7 +29,10 @@ def delete_user(id):
 
 @app.route("/api/users",  methods=['GET'])
 def get_all_users():
-    pass
+    result = user_controller.get_all()
+    if 'error' in result or not result:
+        return jsonify(result), 404
+    return jsonify(result)
 
 @app.route("/api/user",  methods=['GET'])
 def get_user_by_filter_params():
