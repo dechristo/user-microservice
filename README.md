@@ -1,6 +1,6 @@
 # User Microservice [![Build Status](https://travis-ci.org/dechristo/user-microservice.svg?branch=master)](https://travis-ci.org/dechristo/user-microservice)
 
-Developed in Python3 with MySQL.
+Developed in Python3 (with Flask) and MySQL.
 
 ## 1. Setup
 ## 1.1 Installing virtual envrironment
