@@ -14,7 +14,14 @@ Activate the virtual environment and type:
 ### 1.3 Setting environment variable
 Add `FLASK_APP=router.py` to the environemtn vars.
 
-### 1.4 Starting
+### 1.4 Starting the virtual environment
+Type `source env/bin/activate` if you are on linux/osx.
+
+In case you are using windows:
+
+`/env/Scripts/activate.bat`
+
+### 1.5 Starting
 
 At the root project folder type `python -m flask run`
 
