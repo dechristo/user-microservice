@@ -2,19 +2,15 @@ class UserJsonResponse:
 
     @staticmethod
     def build(data):
-        """
-          Build a dict with information retrieved from database.
-          Index 4 is ignored because it contains the password.
-          """
-        if not data or len(data) < 7:
+        if not data or len(data) < 6:
             raise ValueError('Invalid data parameter for building user response.')
         return {
             "id": data[0],
             "first_name": data[1],
             "last_name": data[2],
             "username": data[3],
-            "access_level": data[5],
-            "email": data[6]
+            "access_level": data[4],
+            "email": data[5]
         }
 
     @staticmethod

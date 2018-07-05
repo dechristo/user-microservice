@@ -16,9 +16,9 @@ def add_user():
         return jsonify(result), 400
     return jsonify(result)
 
-@app.route("/api/user", methods=['PUT'])
-def update_user():
-   result = user_controller.update_user(request.json)
+@app.route("/api/user/<id>", methods=['PUT'])
+def update_user(id):
+   result = user_controller.update_user(id, request.json)
    if 'error' in result:
        return jsonify(result), 400
    return jsonify(result)

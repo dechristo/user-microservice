@@ -33,7 +33,6 @@ class UserControllerTest(TestCase):
             'Unit Test',
             'User',
             'unittest.user',
-            'oh_my',
             9,
             'user@unittest.com'
         ]
@@ -65,3 +64,13 @@ class UserControllerTest(TestCase):
         self.user_controller = UserController()
         result = self.user_controller.delete_by_id(11129)
         self.assertEqual(result, {'error': 'user could not be deleted because wasn`t found.'})
+
+    @patch('MySQLdb.connect')
+    @patch('src.services.db.mysql_service.MySQLService.get_all_users')
+    def test_get_all_users_returns_array_of_users(self, get_all_stub, db_mock):
+        db_mock.return_value = MysqlMock()
+        get_all_stub.return_value = Mocks().MYSQL_ALL_USERS_MOCK
+        self.user_controller = UserController()
+        result = self.user_controller.get_all()
+        self.assertIn('data', result)
+        self.assertEqual(len(result.get('data')), 3)

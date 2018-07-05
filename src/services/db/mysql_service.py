@@ -20,7 +20,7 @@ class MySQLService():
                 user.email))
         return result
 
-    def update_user_by_id(self, user):
+    def update_user_by_id(self, id, user):
         cursor = self.connection.cursor()
         query = """UPDATE user SET first_name=%s, last_name=%s, username=%s, access_level=%s, email=%s
               WHERE id=%s;"""
@@ -30,7 +30,7 @@ class MySQLService():
             user.username,
             user.access_level,
             user.email,
-            user.id))
+            id))
         return result
 
     def get_all_users(self):

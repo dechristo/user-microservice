@@ -1,4 +1,5 @@
 from src.utils.new_user_request_validator import NewUserRequestValidator
+from src.utils.existing_user_request_validator import ExistingUserRequestValidator
 from src.custom_exceptions.invalid_request_body import InvalidRequestBody
 from src.services.db.mysql_service import MySQLService
 from src.models.user import User
@@ -11,7 +12,7 @@ class UserController:
 
     def save_user(self, request_data):
         try:
-            self.__parse_request_data(request_data)
+            self.__parse_new_user_request_data(request_data)
             new_user = User(request_data)
             result = self.db_service.insert_user(new_user)
             if not result:
@@ -21,13 +22,13 @@ class UserController:
             print(err)
             return self.__send_response('error', err.args[0])
 
-    def update_user(self, request_data):
+    def update_user(self, id, request_data):
         try:
-            self.__parse_request_data(request_data)
+            self.__parse_update_user_request_data(request_data)
             new_user_data = User(request_data)
-            result = self.db_service.update_user_by_id(new_user_data)
+            result = self.db_service.update_user_by_id(id, new_user_data)
             if not result:
-                return self.__send_response('error', 'user could not update user information.')
+                return self.__send_response('error', 'Could not update user information.')
             return self.__send_response('info', 'user information successfully updated.')
         except InvalidRequestBody as err:
             print(err)
@@ -67,6 +68,11 @@ class UserController:
         return { type: msg }
 
     @staticmethod
-    def __parse_request_data(request_data):
+    def __parse_new_user_request_data(request_data):
         is_valid = NewUserRequestValidator.validate(request_data)
+        return is_valid
+
+    @staticmethod
+    def __parse_update_user_request_data(request_data):
+        is_valid = ExistingUserRequestValidator.validate(request_data)
         return is_valid

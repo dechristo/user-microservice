@@ -45,7 +45,8 @@ Request:
 
 `POST /api/user`
 
-    Body:
+ Body:
+ 
     {
         "username": "Luke",
         "first_name": "Luke",
@@ -100,6 +101,69 @@ Returns `404` if user not found.
 
 ### 3.5 Get all users
 
-### 3.6 Update user
+Request: 
 
+`GET /api/users`
+    
+Response:
+
+    {
+        "data": [
+            {
+                "id": 17,
+                "access_level": 99,
+                "email": "lskywalker@sw.com",
+                "first_name": "Luke",			
+                "last_name": "Skywalker",
+                "username": "Luke"
+            },
+            {
+                "id": 18,
+                "access_level": 5,
+                "email": "jaden@sw.com",
+                "first_name": "Jaden",			
+                "last_name": "Skywalker",
+                "username": "jaden"
+            },
+            {
+                "id": 24,
+                "access_level": 0,
+                "email": "mitcho.betao@gmail.com",
+                "first_name": "Chatuba",			
+                "last_name": "de Mesquita",
+                "username": "chapiscoloco"
+            }
+        ]
+    }
+    
+
+Returns `404` if user not found.
+
+### 3.6 Update user
+Request: 
+
+`PUT /api/user/<id>`
+    
+  Body:
+  
+    {
+        "username": "Luke",
+        "first_name": "Luke",
+        "last_name": "Skywalker",
+        "password": "theforce",
+        "access_level": 99,
+        "email": "lskywalker@sw.com"
+    }
+    
+Response:
+
+    {
+        "info": "User information successfully updated."
+    }
+    
+   or if an error occurred during update:
+    
+    {
+	    "error": "Could not update user information."
+    }
 ### 3.7 Search user

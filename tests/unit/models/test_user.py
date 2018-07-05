@@ -17,7 +17,7 @@ class UserTest(TestCase):
         self.assertEqual(user.first_name, 'Unit Test')
         self.assertEqual(user.last_name, 'User')
         self.assertEqual(user.username, 'unittest.user')
-        self.assertEqual(user.password, 'oooops')
+        self.assertEqual(user.password, 'chapisco100!')
         self.assertEqual(user.access_level, 9)
         self.assertEqual(user.email, 'user@unittest.com')
 

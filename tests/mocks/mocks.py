@@ -6,7 +6,7 @@ class Mocks:
             'first_name': 'Unit Test',
             'last_name': 'User',
             'username': 'unittest.user',
-            'password': 'oooops',
+            'password': 'chapisco100!',
             'access_level': 9,
             'email': 'user@unittest.com'
         }
@@ -16,7 +16,6 @@ class Mocks:
             'Unit Test',
             'User',
             'unittest.user',
-            'oooops',
             9,
             'user@unittest.com'
             ),(
@@ -24,7 +23,6 @@ class Mocks:
             "Luke",
             "Skywalker",
             "luke",
-            "theforce",
             99,
             "lskywalker@sw.com"
             ), (
@@ -32,7 +30,6 @@ class Mocks:
             "Mano",
             "Brow",
             "mbrow",
-            "chapisco1000!",
             0,
             "mbrow@warmbluw.com"
         ))
@@ -42,7 +39,6 @@ class Mocks:
             'Unit Test',
             'User',
             'unittest.user',
-            'supersafe',
             9,
             'user@unittest.com'
         ]

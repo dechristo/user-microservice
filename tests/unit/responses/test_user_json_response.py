@@ -22,8 +22,8 @@ class UserJsonResponseTest(TestCase):
                'first_name': self.user_mock[1],
                'last_name': self.user_mock[2],
                'username': self.user_mock[3],
-               'access_level': self.user_mock[5],
-               'email': self.user_mock[6]
+               'access_level': self.user_mock[4],
+               'email': self.user_mock[5]
        })
 
     def test_build_from_array_returs_correct_json_response_object(self):
