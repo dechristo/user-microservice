@@ -2,6 +2,7 @@ class Mocks:
 
     def __init__(self):
         self.USER_MOCK =  {
+            'id': 89,
             'first_name': 'Unit Test',
             'last_name': 'User',
             'username': 'unittest.user',
@@ -21,16 +22,16 @@ class Mocks:
             ),(
             8768,
             "Luke",
-            "Luke",
             "Skywalker",
+            "luke",
             "theforce",
             99,
             "lskywalker@sw.com"
             ), (
             24,
-            "mbrow",
             "Mano",
             "Brow",
+            "mbrow",
             "chapisco1000!",
             0,
             "mbrow@warmbluw.com"
@@ -41,6 +42,7 @@ class Mocks:
             'Unit Test',
             'User',
             'unittest.user',
+            'supersafe',
             9,
             'user@unittest.com'
         ]

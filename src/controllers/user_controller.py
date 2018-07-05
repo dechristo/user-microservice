@@ -21,6 +21,18 @@ class UserController:
             print(err)
             return self.__send_response('error', err.args[0])
 
+    def update_user(self, request_data):
+        try:
+            self.__parse_request_data(request_data)
+            new_user_data = User(request_data)
+            result = self.db_service.update_user_by_id(new_user_data)
+            if not result:
+                return self.__send_response('error', 'user could not update user information.')
+            return self.__send_response('info', 'user information successfully updated.')
+        except InvalidRequestBody as err:
+            print(err)
+            return self.__send_response('error', err.args[0])
+
     def get_all(self):
         try:
             users = self.db_service.get_all_users()

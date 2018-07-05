@@ -18,7 +18,10 @@ def add_user():
 
 @app.route("/api/user", methods=['PUT'])
 def update_user():
-    pass
+   result = user_controller.update_user(request.json)
+   if 'error' in result:
+       return jsonify(result), 400
+   return jsonify(result)
 
 @app.route("/api/user/<id>", methods=['DELETE'])
 def delete_user(id):

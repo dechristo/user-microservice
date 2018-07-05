@@ -42,6 +42,7 @@ Response:
 
 ### 3.2 Add user
 Request: 
+
 `POST /api/user`
 
     Body:
@@ -63,6 +64,7 @@ Response:
        
 ### 3.3 Delete user
 Request: 
+
 `DELETE /api/user/:id`
     
 Response:
@@ -79,6 +81,7 @@ Response:
     
 ### 3.4 Get one user
 Request: 
+
 `GET /api/user/:id`
     
 Response:

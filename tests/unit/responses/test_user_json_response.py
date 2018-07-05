@@ -11,45 +11,45 @@ class UserJsonResponseTest(TestCase):
     def test_raise_exception_if_build_parameter_is_none(self):
         self.assertRaises(ValueError, UserJsonResponse.build, {})
 
-    def test_raise_exception_if_build_parameter_length_is_less_than_6(self):
+    def test_raise_exception_if_build_parameter_length_is_less_than_7(self):
             self.user_mock.pop(0)
             self.assertRaises(ValueError, UserJsonResponse.build, self.user_mock)
 
     def test_build_returns_correct_json_response_object(self):
        result = UserJsonResponse.build(self.user_mock)
        self.assertEqual(result, {
-               "id": self.user_mock[0],
-               "first_name": self.user_mock[1],
-               "last_name": self.user_mock[2],
-               "username": self.user_mock[3],
-               "access_level": self.user_mock[4],
-               "email": self.user_mock[5]
+               'id': self.user_mock[0],
+               'first_name': self.user_mock[1],
+               'last_name': self.user_mock[2],
+               'username': self.user_mock[3],
+               'access_level': self.user_mock[5],
+               'email': self.user_mock[6]
        })
 
     def test_build_from_array_returs_correct_json_response_object(self):
         result = UserJsonResponse.build_from_array(self.users_mock)
         self.assertEqual(result, {'data':[{
+            'id':1232,
             'first_name': 'Unit Test',
             'last_name': 'User',
             'username': 'unittest.user',
-            'password': 'oooops',
             'access_level': 9,
             'email': 'user@unittest.com'
             },
             {
-            "username": "Luke",
-            "first_name": "Luke",
-            "last_name": "Skywalker",
-            "password": "theforce",
-            "access_level": 99,
-            "email": "lskywalker@sw.com"
+            'id': 8768,
+            'username': 'luke',
+            'first_name': 'Luke',
+            'last_name': 'Skywalker',
+            'access_level': 99,
+            'email': 'lskywalker@sw.com'
             },
             {
-            "username": "mbrow",
-            "first_name": "Mano",
-            "last_name": "Brow",
-            "password": "chapisco1000!",
-            "access_level": 0,
-            "email": "mbrow@warmbluw.com"
+            'id':24,
+            'username': 'mbrow',
+            'first_name': 'Mano',
+            'last_name': 'Brow',
+            'access_level': 0,
+            'email': 'mbrow@warmbluw.com'
             }]}
         )
