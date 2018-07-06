@@ -185,7 +185,7 @@ Request:
     
 e.g.:
 
-`GET /api/user?name=Luke%20Skywalker`
+`GET /api/user?name=Luke Skywalker`
 
 Response:
 
