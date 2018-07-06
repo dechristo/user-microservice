@@ -40,6 +40,14 @@ class MySQLService():
         result = cursor.fetchall()
         return result
 
+    def find_user_by_name(self, name):
+        cursor = self.connection.cursor()
+        query = """SELECT id, first_name, last_name, username, access_level, email FROM user
+                 WHERE concat(lower(first_name), ' ', lower(last_name)) LIKE %s;"""
+        cursor.execute(query, ('%'+name+'%',))
+        result = cursor.fetchall()
+        return result
+
     def find_user_by_id(self, id):
         cursor = self.connection.cursor()
         query = """SELECT id, first_name, last_name, username, access_level, email FROM user WHERE

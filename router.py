@@ -39,9 +39,13 @@ def get_all_users():
 
 @app.route("/api/user",  methods=['GET'])
 def get_user_by_filter_params():
-    # name = request.args.get('name')
-    # abort(404)
-    pass
+    name = request.args.get('name')
+    if not name:
+         abort(404)
+    result = user_controller.find_by_name(name)
+    if not result or not result.get('data'):
+       return abort(404)
+    return jsonify(result)
 
 @app.route("/api/user/<id>",  methods=['GET'])
 def get_user_by_id(id):
