@@ -52,6 +52,15 @@ class UserController:
             print(err)
             return self.__send_response('error', err)
 
+    def find_by_name(self, name):
+        try:
+            users = self.db_service.find_user_by_name(name)
+            user_response = UserJsonResponse.build_from_array(users)
+            return user_response
+        except Exception as err:
+            print(err)
+            return self.__send_response('error', err)
+
     def delete_by_id(self, id):
         try:
             result =  self.db_service.delete_user_by_id(id)

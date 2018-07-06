@@ -174,3 +174,29 @@ Response:
 	    "error": "Could not update user information."
     }
 ### 3.7 Search user
+Request: 
+
+`GET /api/user?name={name}`
+    
+    
+ Query parameters:
+    
+    - name: user's first and/or last name
+    
+e.g.:
+
+`GET /api/user?name=Luke%20Skywalker`
+
+Response:
+
+    {
+        "access_level": 99,
+        "email": "lskywalker@sw.com",
+        "first_name": "Luke",
+        "id": 10,
+        "last_name": "Skywalker",
+        "username": "Luke"
+    }
+    
+
+Returns `404` if user not found.
