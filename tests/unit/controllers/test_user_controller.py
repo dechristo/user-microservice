@@ -74,3 +74,13 @@ class UserControllerTest(TestCase):
         result = self.user_controller.get_all()
         self.assertIn('data', result)
         self.assertEqual(len(result.get('data')), 3)
+
+    @patch('MySQLdb.connect')
+    @patch('src.services.db.mysql_service.MySQLService.find_user_by_name')
+    def test_find_user_by_name_returns_array_with_user_info_for_existing_users(self, find_stub, db_mock):
+        db_mock.return_value = MysqlMock()
+        find_stub.return_value = tuple(filter((lambda user: user[1] == 'Luke'), Mocks().MYSQL_ALL_USERS_MOCK))
+        self.user_controller = UserController()
+        result = self.user_controller.find_by_name('Luke')
+        self.assertIn('data', result)
+        self.assertEqual(len(result.get('data')),1)
