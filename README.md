@@ -68,20 +68,26 @@ Response:
     {
 	    "info": "user successfully created."
     }
-       
+   
+ There's a body validation. In case any parameter is missing, it returns a HTTP  `400`
+ and the following json (e.g.: password field missing):
+ 
+     {
+	    "error": "Body for new user request is invalid: [password] is missing"
+     }
        
 ### 3.3 Delete user
 Request: 
 
 `DELETE /api/user/:id`
     
-Response:
+Response (HTTP `200`):
 
     {
 	    "info": "user successfully deleted."
     } 
     
- or if user does not exists:
+ or if user does not exists (HTTP `500`):
     
     {
 	    "error": "user could not be deleted because it wasn't found."
@@ -92,7 +98,7 @@ Request:
 
 `GET /api/user/:id`
     
-Response:
+Response (HTTP `200`):
 
     {
         "access_level": 99,
@@ -112,7 +118,7 @@ Request:
 
 `GET /api/users`
     
-Response:
+Response (HTTP `200`):
 
     {
         "data": [
@@ -164,15 +170,18 @@ Request:
     
 Response:
 
+HTTP `200`:
+
     {
         "info": "User information successfully updated."
     }
     
-   or if an error occurred during update:
+   or if an error occurred during update HTTP `500`:
     
     {
 	    "error": "Could not update user information."
     }
+    
 ### 3.7 Search user
 Request: 
 
@@ -189,6 +198,8 @@ e.g.:
 
 Response:
 
+HTTP `200`:
+
     {
         "access_level": 99,
         "email": "lskywalker@sw.com",
@@ -199,4 +210,4 @@ Response:
     }
     
 
-Returns `404` if user not found.
+Returns HTTP `404` if user not found.
