@@ -1,6 +1,6 @@
-class InvalidRequestBody(Exception):
+class ExistingUser(Exception):
 
     def __init__(self, message, errors):
         super().__init__(message)
         self.errors = errors
-        self.msg =message
+        self.msg = message

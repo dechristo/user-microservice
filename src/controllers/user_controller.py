@@ -1,6 +1,7 @@
 from src.utils.new_user_request_validator import NewUserRequestValidator
 from src.utils.existing_user_request_validator import ExistingUserRequestValidator
 from src.custom_exceptions.invalid_request_body import InvalidRequestBody
+from src.custom_exceptions.existing_user import ExistingUser
 from src.services.db.mysql_service import MySQLService
 from src.models.user import User
 from src.responses.user_json_response import UserJsonResponse
@@ -18,9 +19,11 @@ class UserController:
             if not result:
                 return self.__send_response('error', 'user could not be created.')
             return self.__send_response('info', 'user successfully created.')
+        except ExistingUser as err:
+            return self.__send_response('error', err.msg)
         except InvalidRequestBody as err :
             print(err)
-            return self.__send_response('error', err.args[0])
+            return self.__send_response('error', err.msg)
 
     def update_user(self, id, request_data):
         try:
@@ -32,7 +35,7 @@ class UserController:
             return self.__send_response('info', 'user information successfully updated.')
         except InvalidRequestBody as err:
             print(err)
-            return self.__send_response('error', err.args[0])
+            return self.__send_response('error', err.msg)
 
     def get_all(self):
         try:
@@ -67,10 +70,18 @@ class UserController:
             if not result:
                 return self.__send_response('error', 'user could not be deleted because wasn`t found.')
             return self.__send_response('info', 'user successfully deleted.')
-
         except Exception as err:
             print(err)
             return self.__send_response('error', err)
+
+    def login(self, user, password):
+        try :
+            login_successful = self.db_service.find_user_by_email_and_password(user, password)
+            if not login_successful:
+                return self.__send_response('error', 'Invalid credentials.')
+        except Exception as err:
+            return self.__send_response('error','Error during login: %s'.format(err))
+        return self.__send_response('info', 'User {0} successfully logged in.'.format(user))
 
     @staticmethod
     def __send_response(type, msg):
@@ -83,5 +94,10 @@ class UserController:
 
     @staticmethod
     def __parse_update_user_request_data(request_data):
+        is_valid = ExistingUserRequestValidator.validate(request_data)
+        return is_valid
+
+    @staticmethod
+    def __parse_login_data(request_data):
         is_valid = ExistingUserRequestValidator.validate(request_data)
         return is_valid

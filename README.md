@@ -211,3 +211,32 @@ HTTP `200`:
     
 
 Returns HTTP `404` if user not found.
+
+
+### 3.8 Login
+Request: 
+
+`POST /api/login`
+    
+  Body:
+  
+    {
+        "username": "Luke",
+        "password": "theforce"
+    }
+    
+Response:
+
+HTTP `200`:
+
+    {
+        "info": "User [username] successfully logged in."
+    }
+    
+   or if the  credentials are wrong `404`:
+    
+    {
+	    "error": "Invalid credentials."
+    }
+    
+   or if the  request body is malformed ir returns `400` without message.    
