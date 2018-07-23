@@ -3,7 +3,7 @@ from unittest.mock import patch
 from src.controllers.user_controller import UserController
 from tests.mocks.mocks import Mocks
 from tests.mocks.mysql_mock import MysqlMock
-
+from src.custom_exceptions.existing_user import ExistingUser
 
 class UserControllerTest(TestCase):
 
@@ -15,6 +15,16 @@ class UserControllerTest(TestCase):
         self.user_controller = UserController()
         result = self.user_controller.save_user(Mocks().USER_MOCK)
         self.assertEqual(result, {'info':'user successfully created.'})
+
+    @patch('MySQLdb.connect')
+    @patch('src.services.db.mysql_service.MySQLService.find_user_by_email')
+    def test_save_user_returns_error_for_existing_user(self, found_user_stub, db_mock):
+        db_mock.return_value = MysqlMock()
+        found_user_stub.return_value = Mocks().MYSQL_FIND_USER_RESULT_SINGLE
+        self.user_controller = UserController()
+        result = self.user_controller.save_user(Mocks().USER_MOCK)
+        self.assertIn('error', result)
+        self.assertEqual(result['error'], 'An user with this email already exists.')
 
     @patch('MySQLdb.connect')
     @patch('src.services.db.mysql_service.MySQLService.insert_user')
@@ -84,3 +94,25 @@ class UserControllerTest(TestCase):
         result = self.user_controller.find_by_name('Luke')
         self.assertIn('data', result)
         self.assertEqual(len(result.get('data')),1)
+
+    @patch('MySQLdb.connect')
+    @patch('src.services.db.mysql_service.MySQLService.find_user_by_email_and_password')
+    def test_login_returns_error_for_invalid_credentials(self, find_stub, db_mock):
+        db_mock.return_value = MysqlMock()
+        find_stub.return_value = None
+        self.user_controller = UserController()
+        result = self.user_controller.login('Luke', 'forgot')
+        self.assertIn('error', result)
+        self.assertNotIn('info', result)
+        self.assertEqual(result['error'], 'Invalid credentials.')
+
+    @patch('MySQLdb.connect')
+    @patch('src.services.db.mysql_service.MySQLService.find_user_by_email_and_password')
+    def test_login_returns_msg_for_successful_login(self, find_stub, db_mock):
+        db_mock.return_value = MysqlMock()
+        find_stub.return_value = {'email':'luke@sw.com.'}
+        self.user_controller = UserController()
+        result = self.user_controller.login('Luke', 'theforce')
+        self.assertIn('info', result)
+        self.assertNotIn('error', result)
+        self.assertEqual(result['info'], 'User Luke successfully logged in.')

@@ -53,3 +53,14 @@ def get_user_by_id(id):
     if 'error' in user or not user:
         abort(404)
     return jsonify(user)
+
+@app.route("/api/login", methods=['POST'])
+def login():
+    username = request.json.get('username')
+    password = request.json.get('password')
+    if not username or not password:
+        return abort(400)
+    is_logged_in = user_controller.login(username, password)
+    if 'error' in is_logged_in:
+        return jsonify(is_logged_in,), 404
+    return jsonify(is_logged_in,)

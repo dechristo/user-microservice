@@ -1,5 +1,5 @@
+from src.custom_exceptions.existing_user import ExistingUser
 import MySQLdb
-
 
 class MySQLService():
 
@@ -9,6 +9,9 @@ class MySQLService():
 
     def insert_user(self, user):
         cursor = self.connection.cursor()
+        existing_user = self.find_user_by_email(user.email)
+        if existing_user:
+            raise ExistingUser('An user with this email already exists.', {})
         query = """INSERT INTO user (first_name, last_name, username, password, access_level, email)
             values(%s, %s, %s, %s, %s, %s);"""
         result = cursor.execute(query,(
@@ -48,11 +51,28 @@ class MySQLService():
         result = cursor.fetchall()
         return result
 
+    def find_user_by_email(self, email):
+        cursor = self.connection.cursor()
+        query = """SELECT email FROM user
+                       WHERE email = %s;"""
+        cursor.execute(query, (email,))
+        result = cursor.fetchone()
+        return result
+
     def find_user_by_id(self, id):
         cursor = self.connection.cursor()
         query = """SELECT id, first_name, last_name, username, access_level, email FROM user WHERE
                    id = %s;"""
         cursor.execute(query, (int(id),))
+        result = cursor.fetchone()
+        return result
+
+    def find_user_by_email_and_password(self, email, password):
+        cursor = self.connection.cursor()
+        query = """SELECT id, first_name, last_name, username, access_level, email FROM user WHERE
+                   email = %s AND
+                   password = %s;"""
+        cursor.execute(query, (email, password,))
         result = cursor.fetchone()
         return result
 
