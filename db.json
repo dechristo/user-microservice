@@ -1,6 +1,6 @@
 {
-    "hostname": "localhost",
+    "hostname": "fake",
     "db":"fake",
     "username" : "fake",
-    "password" : "fakeeee"
+    "password" : "fake"
 }
