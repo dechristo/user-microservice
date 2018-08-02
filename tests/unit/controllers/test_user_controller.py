@@ -117,8 +117,10 @@ class UserControllerTest(TestCase):
         self.assertNotIn('error', result)
         self.assertEqual(result['info'], 'User Luke successfully logged in.')
 
+    @patch('src.services.mysql_service.MySQLService.__init__')
     @responses.activate
-    def test_get_address_by_zip_code_returns_address_and_200_for_valid_zip_code(self):
+    def test_get_address_by_zip_code_returns_address_and_200_for_valid_zip_code(self, db_mock):
+        db_mock.return_value = None
         responses.add(responses.GET, 'https://api.postmon.com.br/v1/cep/82200530',
                 json= {
             'pais': 'Brasil',
@@ -135,8 +137,10 @@ class UserControllerTest(TestCase):
         self.assertIn('endereco', result)
         self.assertEqual('Av. Anita Garibaldi', result['endereco'])
 
+    @patch('src.services.mysql_service.MySQLService.__init__')
     @responses.activate
-    def test_get_address_by_zip_code_returns_None_and_404_for_invalid_zip_code(self):
+    def test_get_address_by_zip_code_returns_None_and_404_for_invalid_zip_code(self, db_mock):
+        db_mock.return_value = None
         responses.add(responses.GET, 'https://api.postmon.com.br/v1/cep/822005301',
                       json={}, status=404)
         self.user_controller = UserController()
