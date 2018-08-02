@@ -4,7 +4,7 @@ from settings import Settings
 
 class CryptoTest(TestCase):
     def setUp(self):
-        self.crypto = Crypto(Settings.KEY)
+        self.crypto = Crypto("bxH5xb_GfHhEDpNASsPKB8YuT1q5RbfTLdxe_lXFzYY=")
 
     def test_encrypt_returns_encrypted_bytes(self):
         encrypted = self.crypto.encrypt("1234")
