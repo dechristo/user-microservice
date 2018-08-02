@@ -1,8 +1,9 @@
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, session
 from src.controllers.user_controller import UserController
 
 
 app = Flask(__name__)
+app.secret_key = "super secret key"
 user_controller = UserController()
 
 @app.route("/api/status-check")
@@ -32,10 +33,12 @@ def delete_user(id):
 
 @app.route("/api/users",  methods=['GET'])
 def get_all_users():
-    result = user_controller.get_all()
-    if 'error' in result or not result:
-        return jsonify(result), 404
-    return jsonify(result)
+    if session.get('is_logged'):
+        result = user_controller.get_all()
+        if 'error' in result or not result:
+            return jsonify(result), 404
+        return jsonify(result)
+    return jsonify('not logged in'), 403
 
 @app.route("/api/user",  methods=['GET'])
 def get_user_by_filter_params():
@@ -54,6 +57,11 @@ def get_user_by_id(id):
         abort(404)
     return jsonify(user)
 
+@app.route("/api/user/address/<zip_code>", methods=['GET'])
+def get_address_by_zip_code(zip_code):
+    result = user_controller.get_address_by_zip_code(zip_code)
+    return jsonify(result) if result else abort(404)
+
 @app.route("/api/login", methods=['POST'])
 def login():
     username = request.json.get('username')
@@ -63,4 +71,5 @@ def login():
     is_logged_in = user_controller.login(username, password)
     if 'error' in is_logged_in:
         return jsonify(is_logged_in,), 404
+    session['is_logged'] = True
     return jsonify(is_logged_in,)

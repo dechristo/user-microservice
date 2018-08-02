@@ -2,9 +2,10 @@ from src.utils.new_user_request_validator import NewUserRequestValidator
 from src.utils.existing_user_request_validator import ExistingUserRequestValidator
 from src.custom_exceptions.invalid_request_body import InvalidRequestBody
 from src.custom_exceptions.existing_user import ExistingUser
-from src.services.db.mysql_service import MySQLService
+from src.services.mysql_service import MySQLService
 from src.models.user import User
 from src.responses.user_json_response import UserJsonResponse
+from src.services.address_service import AddressService
 
 class UserController:
 
@@ -82,6 +83,10 @@ class UserController:
         except Exception as err:
             return self.__send_response('error','Error during login: %s'.format(err))
         return self.__send_response('info', 'User {0} successfully logged in.'.format(user))
+
+    def get_address_by_zip_code(self, zip_code):
+        address = AddressService.get_address_by_zip_code(zip_code)
+        return address
 
     @staticmethod
     def __send_response(type, msg):

@@ -239,4 +239,36 @@ HTTP `200`:
 	    "error": "Invalid credentials."
     }
     
-   or if the  request body is malformed ir returns `400` without message.    
+   or if the  request body is malformed ir returns `400` without message.
+   
+   ### 3.9 Address by ZIP code
+   
+   Request:
+   
+   `GET /api/user/address/<zip_code>`
+   
+   e.g.: `https://api.postmon.com.br/v1/cep/82200530`
+   
+   Response:
+   
+   `HTTP 200`:
+   
+      {
+        "complemento": "de 1791 a 2349 - lado ímpar",
+        "bairro": "Ahú",
+        "cidade": "Curitiba",
+        "logradouro": "Avenida Anita Garibaldi",
+        "estado_info": {
+            "area_km2": "199.307,985",
+            "codigo_ibge": "41",
+            "nome": "Paraná"
+        },
+        "cep": "82200530",
+        "cidade_info": {
+            "area_km2": "435,036",
+            "codigo_ibge": "4106902"
+        },
+        "estado": "PR"
+    }
+    
+   And for invalid zip codes returns `HTTP 404`.
