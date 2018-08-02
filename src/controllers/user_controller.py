@@ -1,5 +1,5 @@
-from src.utils.new_user_request_validator import NewUserRequestValidator
-from src.utils.existing_user_request_validator import ExistingUserRequestValidator
+from src.validators.new_user_request_validator import NewUserRequestValidator
+from src.validators.existing_user_request_validator import ExistingUserRequestValidator
 from src.custom_exceptions.invalid_request_body import InvalidRequestBody
 from src.custom_exceptions.existing_user import ExistingUser
 from src.services.mysql_service import MySQLService
