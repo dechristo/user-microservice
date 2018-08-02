@@ -1,10 +1,15 @@
 from src.custom_exceptions.existing_user import ExistingUser
+from settings import Settings
 import MySQLdb
 
 class MySQLService():
 
     def __init__(self):
-        self.connection = MySQLdb.connect("localhost", user="root", passwd="verysecure", db="userms")
+        self.connection = MySQLdb.connect(
+            Settings.DB_SETTINGS["hostname"],
+            user=Settings.DB_SETTINGS["username"],
+            passwd=Settings.DB_SETTINGS["password"],
+            db=Settings.DB_SETTINGS["db"])
         self.connection.autocommit(True)
 
     def insert_user(self, user):

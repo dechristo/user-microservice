@@ -1,6 +1,6 @@
 from unittest import TestCase
 from tests.mocks.mocks import Mocks
-from src.utils.new_user_request_validator import NewUserRequestValidator
+from src.validators.new_user_request_validator import NewUserRequestValidator
 from src.custom_exceptions.invalid_request_body import InvalidRequestBody
 
 
