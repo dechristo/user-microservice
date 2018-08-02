@@ -5,6 +5,7 @@ from src.controllers.user_controller import UserController
 from tests.mocks.mocks import Mocks
 from tests.mocks.mysql_mock import MysqlMock
 
+
 class UserControllerTest(TestCase):
 
     @patch('MySQLdb.connect')

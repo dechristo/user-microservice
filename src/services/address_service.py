@@ -1,6 +1,7 @@
 import requests
 from settings import Settings
 
+
 class AddressService:
 
     @staticmethod

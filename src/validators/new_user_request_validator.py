@@ -1,5 +1,6 @@
 from src.custom_exceptions.invalid_request_body import InvalidRequestBody
 
+
 class NewUserRequestValidator:
 
     @staticmethod
