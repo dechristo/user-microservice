@@ -1,6 +1,7 @@
 import os
 from src.utils.json_reader import JsonReader
 
+
 class Settings:
 
     PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))

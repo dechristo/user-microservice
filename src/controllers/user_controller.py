@@ -7,6 +7,7 @@ from src.models.user import User
 from src.responses.user_json_response import UserJsonResponse
 from src.services.address_service import AddressService
 
+
 class UserController:
 
     def __init__(self):

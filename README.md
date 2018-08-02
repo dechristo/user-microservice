@@ -11,6 +11,10 @@ Activate the virtual environment and type:
 
  `pip install -r requirements.txt`
 
+*Windows users: to install the latest `pycrypto` on **Windows** you need to have Build Tools for Visual Studio 2017:
+
+https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2017
+
 ### 1.3 Setting environment variable
 Add `FLASK_APP=router.py` to the environemtn vars.
 
